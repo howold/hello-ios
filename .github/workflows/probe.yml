@@ -1,0 +1,26 @@
+name: Probe Runners
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  probe-ubuntu:
+    name: 探针 ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: 打印环境
+        run: |
+          echo "ubuntu runner 正常"
+          uname -a
+
+  probe-macos:
+    name: 探针 macos
+    runs-on: macos-14
+    steps:
+      - name: 打印环境
+        run: |
+          echo "macos runner 正常"
+          sw_vers
+          xcodebuild -version
