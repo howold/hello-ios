@@ -1,0 +1,35 @@
+name: Build HelloApp IPA
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: 云端编译未签名 IPA
+    runs-on: macos-14
+    timeout-minutes: 20
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 显示工具链版本
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphoneos --show-sdk-version
+          swift --version
+
+      - name: 编译并打包
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: HelloApp-ipa
+          path: build/HelloApp.ipa
+          if-no-files-found: error
+          retention-days: 14

@@ -1,0 +1,4 @@
+build/
+*.ipa
+build/*.ipa
+.DS_Store
